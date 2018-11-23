@@ -17,6 +17,20 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('client disconnected');
     });
+
+    socket.emit('rideRequest', {
+        price: '125 birr',
+        distance: '9 km',
+        route_time: '14 min'
+    })
+
+    socket.on('driverOnline', (driver) => {
+       console.log('driver is online', driver);
+       io.emit('standByDriver', {
+          id: driver.id,
+          driver_name: driver.driver_name
+       })
+    });
 });
 
 
