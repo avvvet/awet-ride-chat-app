@@ -42,7 +42,14 @@ io.on('connection', (socket) => {
             ack: 'Lord Jesus thank you'
 
         });
-    })
+    });
+
+    socket.on('clientMessage', (message, callback) => {
+       callback({
+           message: message.message,
+           time_stamp: 123
+       });
+    });
 });
 
 

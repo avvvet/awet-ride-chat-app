@@ -28,3 +28,16 @@ socket.emit('rideAccepted', {
 }, function(ack){
     console.log('server replyed', ack);
 })
+
+jQuery('#message-form').on('submit', function(e){
+    e.preventDefault();
+    socket.emit('clientMessage', {
+        message: jQuery('[name=message]').val()
+    }, function(ack){
+        console.log('server replyed', ack);
+        var li = jQuery('<li></li>');
+        li.text(`${ack.time_stamp} : ${ack.message}`);
+
+        jQuery('#messages').append(li);
+    })
+});
