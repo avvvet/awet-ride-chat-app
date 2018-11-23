@@ -26,11 +26,23 @@ io.on('connection', (socket) => {
 
     socket.on('driverOnline', (driver) => {
        console.log('driver is online', driver);
-       io.emit('standByDriver', {
-          id: driver.id,
-          driver_name: driver.driver_name
-       })
+    //    io.emit('standByDriver', {
+    //       id: driver.id,
+    //       driver_name: driver.driver_name
+    //    })
+        socket.broadcast.emit('standByDriver', {
+            id: driver.id,
+            driver_name: driver.driver_name
+        });
     });
+
+    socket.on('rideAccepted', (accpeted_time,callback) => {
+        console.log('your ride acceptance received', accpeted_time);
+        callback({
+            ack: 'Lord Jesus thank you'
+
+        });
+    })
 });
 
 
