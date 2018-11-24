@@ -31,13 +31,24 @@ socket.emit('rideAccepted', {
 
 jQuery('#message-form').on('submit', function(e){
     e.preventDefault();
+    
+    var messageTextbox = jQuery('[name=message]');
+
     socket.emit('clientMessage', {
-        message: jQuery('[name=message]').val()
+        message: messageTextbox.val()
     }, function(ack){
         console.log('server replyed', ack);
-        var li = jQuery('<li></li>');
-        li.text(`${ack.time_stamp} : ${ack.message}`);
-
-        jQuery('#messages').append(li);
+        
     })
 });
+
+
+socket.on('messageFromServer', function(message){
+    console.log("server sent message" , message);
+    var messageTextbox = jQuery('[name=message]');
+    var li = jQuery('<li></li>');
+    li.text(`${message.time_stamp} : ${message.message}`);
+
+    jQuery('#messages').append(li);
+    messageTextbox.val('');
+})

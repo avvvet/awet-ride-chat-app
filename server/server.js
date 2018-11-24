@@ -45,10 +45,13 @@ io.on('connection', (socket) => {
     });
 
     socket.on('clientMessage', (message, callback) => {
-       callback({
-           message: message.message,
-           time_stamp: 123
-       });
+        io.emit('messageFromServer', {
+            message: message.message,
+            time_stamp: '123'
+        });
+        callback({
+           srver_ack: 'ok'
+        });
     });
 });
 
