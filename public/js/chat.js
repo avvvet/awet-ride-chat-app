@@ -62,3 +62,12 @@ socket.on('messageFromServer', function(message){
     jQuery('#messages').append(li);
     messageTextbox.val('');
 })
+
+socket.on('newMessage', function(message){
+    var messageTextbox = jQuery('[name=message]');
+    var li = jQuery('<li></li>');
+    li.text(message.message);
+
+    jQuery('#messages').append(li);
+    messageTextbox.val('');
+})

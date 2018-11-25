@@ -19,7 +19,15 @@ io.on('connection', (socket) => {
        if(!isRealString(params.name) || !isRealString(params.room)) {
            callback('Name and room name are required');
        }
+       
+       socket.join(params.room);
 
+       socket.emit('newMessage', {
+           message: 'Admin, Welcome to awet ride sharing.'
+       })
+       socket.broadcast.to(params.room).emit('newMessage', {
+           message: `${params.name} has joined.`
+       })
        callback();
     });
     
