@@ -71,3 +71,14 @@ socket.on('newMessage', function(message){
     jQuery('#messages').append(li);
     messageTextbox.val('');
 })
+
+socket.on('updateUserList', function(users) {
+    console.log('user list', users);
+    var ol = jQuery('<ol></ol>');
+
+    users.forEach(function (user) {
+        ol.append(jQuery('<li></li>').text(user));
+    });
+
+    jQuery('#users').html(ol);
+});
